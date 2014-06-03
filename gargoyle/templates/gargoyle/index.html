@@ -21,6 +21,23 @@
                 closeImage:   "{% url 'nexus:media' 'gargoyle' 'img/facebox/closelabel.png' %}"
             }
         };
+        $(function() {
+            console.log('hello!');
+        });
+
+{#        $(function() {#}
+{#            $($0).blur(function() {#}
+{#                var email = $(this).val();#}
+{##}
+{#                var options = _.map(function(account) {#}
+{#                    return '<option value="{}">{}</option>'.format(account.pk, account.company);#}
+{#                }, accounts_from_email(email));#}
+{##}
+{#                $($1).html(options);#}
+{#            });#}
+{#        });#}
+
+
     </script>
 
     <script src="{% url 'nexus:media' 'gargoyle' 'js/string_score.min.js' %}"></script>
