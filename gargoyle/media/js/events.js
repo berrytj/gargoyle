@@ -1,4 +1,6 @@
+console.log('outside');
 $(function() {
+    console.log('inside');
     $('#emailForAccount').blur(function() {
         console.log('hello?');
         var email = encodeURIComponent($(this).val());
