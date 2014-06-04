@@ -1,10 +1,7 @@
-console.log('outside');
 $(function() {
-    console.log('inside');
-    $('#emailForAccount').blur(function() {
-        console.log('hello?');
+    $('.conditionsForm').delegate('.emailForAccount', 'blur', function() {
         var email = encodeURIComponent($(this).val());
-        $.getJSON('/account/accounts_for_email/{}/'.format(email)).done(function(accounts) {
+        $.getJSON('/account/accounts_for_email/{}/'.format(email), function(accounts) {
             $('#accountSelect').html(
                 _.map(
                     function(account) {
