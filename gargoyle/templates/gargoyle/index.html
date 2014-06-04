@@ -257,7 +257,7 @@
                     <form action="" method="get" data-switch="{{ id }}" data-field="{{ field.name }}">
                         {% if field.name == 'my_pk' %}
                             <input type="text" class="emailForAccount" />
-                            <select name="my_pk" id="accountSelect"></select>
+                            <select name="my_pk" class="accountSelect"></select>
                             <button type="submit" class="small button">Add</button>
                         {% else %}
                             {{ field|render_field }}
