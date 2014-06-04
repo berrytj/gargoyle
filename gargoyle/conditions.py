@@ -28,10 +28,11 @@ def titlize(s):
 class Field(object):
     default_help_text = None
 
-    def __init__(self, label=None, help_text=None):
+    def __init__(self, label=None, help_text=None, extra_info=None):
         self.label = label
         self.help_text = help_text or self.default_help_text
         self.set_values(None)
+        self.extra_info = extra_info
 
     def set_values(self, name):
         self.name = name
