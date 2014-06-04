@@ -21,23 +21,24 @@
                 closeImage:   "{% url 'nexus:media' 'gargoyle' 'img/facebox/closelabel.png' %}"
             }
         };
+
+        var emailToAccounts = JSON.parse("{{ extra_info }}").my_pk;
+
         $(function() {
-            console.log('hello!');
+            $('#emailForAccount').blur(function() {
+                $('#accountSelect').html(
+                    _.map(
+                        function(account) {
+                            return '<option value="{}">{}</option>'.format(
+                                account[0],
+                                account[1]
+                            );
+                        },
+                        emailToAccounts[$(this).val()]
+                    )
+                );
+            });
         });
-
-{#        $(function() {#}
-{#            $($0).blur(function() {#}
-{#                var email = $(this).val();#}
-{##}
-{#                var options = _.map(function(account) {#}
-{#                    return '<option value="{}">{}</option>'.format(account.pk, account.company);#}
-{#                }, accounts_from_email(email));#}
-{##}
-{#                $($1).html(options);#}
-{#            });#}
-{#        });#}
-
-
     </script>
 
     <script src="{% url 'nexus:media' 'gargoyle' 'js/string_score.min.js' %}"></script>
@@ -269,11 +270,17 @@
             {% for id, group, field in all_conditions %}
                 <div class="fields" data-path="{{ id }}.{{ field.name }}" style="display:none;">
                     <form action="" method="get" data-switch="{{ id }}" data-field="{{ field.name }}">
-                        {{ field|render_field }}
-                        <label><input type="checkbox" name="exclude" value="1"/> Exclude</label>
-                        <button type="submit" class="small button">Add</button>
-                        {% if field.help_text %}
-                            <div class="helptext">{{ field.help_text }}</div>
+                        {% if field.name == 'my_pk' %}
+                            <input type="text" id="emailForAccount" />
+                            <select name="my_pk" id="accountSelect"></select>
+                            <button type="submit" class="small button">Add</button>
+                        {% else %}
+                            {{ field|render_field }}
+                            <label><input type="checkbox" name="exclude" value="1"/> Exclude</label>
+                            <button type="submit" class="small button">Add</button>
+                            {% if field.help_text %}
+                                <div class="helptext">{{ field.help_text }}</div>
+                            {% endif %}
                         {% endif %}
                     </form>
                 </div>
