@@ -21,28 +21,34 @@
                 closeImage:   "{% url 'nexus:media' 'gargoyle' 'img/facebox/closelabel.png' %}"
             }
         };
-
-        var emailToAccounts = JSON.parse("{{ extra_info }}").my_pk;
-
-        $(function() {
-            $('#emailForAccount').blur(function() {
-                $('#accountSelect').html(
-                    _.map(
-                        function(account) {
-                            return '<option value="{}">{}</option>'.format(
-                                account[0],
-                                account[1]
-                            );
-                        },
-                        emailToAccounts[$(this).val()]
-                    )
-                );
-            });
-        });
     </script>
 
     <script src="{% url 'nexus:media' 'gargoyle' 'js/string_score.min.js' %}"></script>
     <script src="{% url 'nexus:media' 'gargoyle' 'js/gargoyle.js' %}"></script>
+    <script src="{% url 'nexus:media' 'gargoyle' 'js/shared.js' %}"></script>
+    <script src="{% url 'nexus:media' 'gargoyle' 'js/libs/jquery-1.8.3.min.js' %}"></script>
+    <script src="{% url 'nexus:media' 'gargoyle' 'js/libs/underscore.js' %}"></script>
+
+    <script>
+        $(function() {
+            $('#emailForAccount').blur(function() {
+                var email = encodeURIComponent($(this).val());
+                $.getJSON('/account/accounts_for_email/{}/'.format(email)).done(function(accounts) {
+                    $('#accountSelect').html(
+                        _.map(
+                            function(account) {
+                                return '<option value="{}">{}</option>'.format(
+                                    account[0],
+                                    account[1]
+                                );
+                            },
+                            accounts
+                        )
+                    );
+                });
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
