@@ -114,18 +114,11 @@ class GargoyleModule(nexus.NexusModule):
             return HttpResponseNotFound('Invalid sort order.')
 
         switches = list(Switch.objects.all().order_by(sort_by))
-        all_conditions = list(gargoyle.get_all_conditions())
-        extra_info = dict([
-            [cond.field.name, cond.field.extra_info]
-            for cond in all_conditions
-            if hasattr(cond.field, 'extra_info')
-        ])
 
         return self.render_to_response("gargoyle/index.html", {
             "switches": [s.to_dict(gargoyle) for s in switches],
-            "all_conditions": all_conditions,
+            "all_conditions": list(gargoyle.get_all_conditions()),
             "sorted_by": sort_by,
-            "extra_info": real_json.dumps(extra_info),
         }, request)
 
     def add(self, request):
