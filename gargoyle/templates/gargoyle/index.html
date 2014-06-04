@@ -26,29 +26,8 @@
     <script src="{% url 'nexus:media' 'gargoyle' 'js/string_score.min.js' %}"></script>
     <script src="{% url 'nexus:media' 'gargoyle' 'js/gargoyle.js' %}"></script>
     <script src="{% url 'nexus:media' 'gargoyle' 'js/shared.js' %}"></script>
-    <script src="{% url 'nexus:media' 'gargoyle' 'js/libs/jquery-1.8.3.min.js' %}"></script>
     <script src="{% url 'nexus:media' 'gargoyle' 'js/libs/underscore.js' %}"></script>
-
-    <script>
-        $(function() {
-            $('#emailForAccount').blur(function() {
-                var email = encodeURIComponent($(this).val());
-                $.getJSON('/account/accounts_for_email/{}/'.format(email)).done(function(accounts) {
-                    $('#accountSelect').html(
-                        _.map(
-                            function(account) {
-                                return '<option value="{}">{}</option>'.format(
-                                    account[0],
-                                    account[1]
-                                );
-                            },
-                            accounts
-                        )
-                    );
-                });
-            });
-        });
-    </script>
+    <script src="{% url 'nexus:media' 'gargoyle' 'js/events.js' %}"></script>
 {% endblock %}
 
 {% block content %}
