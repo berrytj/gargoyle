@@ -21,6 +21,13 @@ from gargoyle.models import EXCLUDE
 import itertools
 
 
+# Values corresponding to these fields
+# must be cleaned with the specified
+# function when pulled from the page.
+clean_funcs = {
+    'pk': int,
+}
+
 def titlize(s):
     return s.title().replace('_', ' ')
 
@@ -45,11 +52,11 @@ class Field(object):
         value = data.get(self.name)
         if value:
             value = self.clean(value)
-            #assert isinstance(value, basestring), 'clean methods must return strings'
+            # Commented out by Tom:
+            # assert isinstance(value, basestring), 'clean methods must return strings'
         return value
 
     def clean(self, value):
-        print '############# {} #############'.format(value)
         return value
 
     def render(self, value):
@@ -71,23 +78,22 @@ class Boolean(Field):
         return self.label
 
 
-#class Choice(Field):
-#    def __init__(self, choices, **kwargs):
-#        self.choices = choices
-#        self.displays = kwargs.pop('displays', None)
-#        super(Choice, self).__init__(**kwargs)
-#
-#    #def is_active(self, condition, value):
-#    #    return condition == value
-#    #    print '####### does this get hit? ###### {} #############'.format(len(self.choices))
-#    #    return value in self.choices
-##
-#    def clean(self, value):
-#        print '############# {} #############'.format(len(self.choices))
-#        return value
+class Choice(Field):
+    def __init__(self, choices, **kwargs):
+        self.choices = choices
+        super(Choice, self).__init__(**kwargs)
+
+    def is_active(self, condition, value):
+        return value in self.choices
+
+    def clean(self, value):
+        if value not in self.choices:
+            raise ValidationError
+        return value
 
 
 class IntField(Field):
+    # Added by Karan/Tom.
     def __init__(self, displays=None, **kwargs):
         self.displays = displays
         super(IntField, self).__init__(**kwargs)

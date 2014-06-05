@@ -9,9 +9,9 @@ gargoyle.nexus_modules
 import logging
 import nexus
 import os.path
-import json as real_json
 
 from functools import wraps
+import toolz
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound
@@ -19,7 +19,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from gargoyle import gargoyle, autodiscover
 from gargoyle.helpers import dumps
 from gargoyle.models import Switch, DISABLED
-from gargoyle.conditions import ValidationError
+from gargoyle.conditions import ValidationError, clean_funcs
 from gargoyle import signals
 
 
@@ -285,7 +285,8 @@ class GargoyleModule(nexus.NexusModule):
         key = request.POST.get("key")
         condition_set_id = request.POST.get("id")
         field_name = request.POST.get("field")
-        value = request.POST.get("value")
+        value = toolz.get(
+            field_name, clean_funcs, toolz.identity)(request.POST.get("value"))
 
         if not all([key, condition_set_id, field_name, value]):
             raise GargoyleException("Fields cannot be empty")
