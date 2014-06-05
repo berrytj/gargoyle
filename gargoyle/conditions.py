@@ -71,30 +71,35 @@ class Boolean(Field):
         return self.label
 
 
-class Choice(Field):
-    def __init__(self, choices, **kwargs):
-        self.choices = choices
-        self.displays = kwargs.pop('displays', None)
-        super(Choice, self).__init__(**kwargs)
+#class Choice(Field):
+#    def __init__(self, choices, **kwargs):
+#        self.choices = choices
+#        self.displays = kwargs.pop('displays', None)
+#        super(Choice, self).__init__(**kwargs)
+#
+#    #def is_active(self, condition, value):
+#    #    return condition == value
+#    #    print '####### does this get hit? ###### {} #############'.format(len(self.choices))
+#    #    return value in self.choices
+#
+#    def clean(self, value):
+#        print '############# {} #############'.format(len(self.choices))
+#        return value
 
-    def is_active(self, condition, value):
-        print '####### does this get hit? ###### {} #############'.format(len(self.choices))
-        return value in self.choices #or int(value) in self.choices
+
+class IntField(Field):
+    def __init__(self, displays=None, **kwargs):
+        self.displays = displays
+        super(Field, self).__init__(**kwargs)
 
     def clean(self, value):
-        print '############# {} #############'.format(len(self.choices))
-        return value
+        return super(IntField, self).clean(int(value))
 
     def display(self, value):
         if self.displays is not None:
             return self.displays[value]
         else:
             return value
-
-
-class IntChoice(Choice):
-    def clean(self, value):
-        return super(IntChoice, self).clean(int(value))
 
 
 class Range(Field):
