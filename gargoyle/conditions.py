@@ -45,7 +45,7 @@ class Field(object):
         value = data.get(self.name)
         if value:
             value = self.clean(value)
-            assert isinstance(value, basestring), 'clean methods must return strings'
+            #assert isinstance(value, basestring), 'clean methods must return strings'
         return value
 
     def clean(self, value):
@@ -78,16 +78,11 @@ class Choice(Field):
         super(Choice, self).__init__(**kwargs)
 
     def is_active(self, condition, value):
-        print '############# {} #############'.format(len(self.choices))
+        print '####### does this get hit? ###### {} #############'.format(len(self.choices))
         return value in self.choices #or int(value) in self.choices
 
     def clean(self, value):
         print '############# {} #############'.format(len(self.choices))
-        #import re
-        #if re.match(r'^\d+$', value):
-        #    value = int(value)
-        #if value not in self.choices:
-        #    raise ValidationError
         return value
 
     def display(self, value):
@@ -95,6 +90,11 @@ class Choice(Field):
             return self.displays[value]
         else:
             return value
+
+
+class IntChoice(Choice):
+    def clean(self, value):
+        return super(IntChoice, self).clean(int(value))
 
 
 class Range(Field):
