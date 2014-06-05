@@ -77,7 +77,6 @@ class Choice(Field):
         super(Choice, self).__init__(**kwargs)
 
     def is_active(self, condition, value):
-        from nose.tools import set_trace; set_trace()
         return value in self.choices #or int(value) in self.choices
 
     def clean(self, value):
