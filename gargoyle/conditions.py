@@ -90,7 +90,7 @@ class Boolean(Field):
 class IntField(Field):
     def __init__(self, displays=None, **kwargs):
         self.displays = displays
-        super(Field, self).__init__(**kwargs)
+        super(IntField, self).__init__(**kwargs)
 
     def clean(self, value):
         return super(IntField, self).clean(int(value))
