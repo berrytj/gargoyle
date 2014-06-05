@@ -1,9 +1,9 @@
 $(function() {
-    var $condForm = $('.conditionsForm');
-    $condForm.delegate('.emailForAccount', 'blur', function() {
+    $('.conditionsForm').delegate('.emailForAccount', 'blur', function() {
+        var that = this;
         var email = encodeURIComponent($(this).val());
         $.getJSON('/account/accounts_for_email/{}/'.format(email), function(accounts) {
-            $condForm.find('.accountSelect').html(
+            $(that).parents('.conditionsForm').find('.accountSelect').html(
                 _.map(
                     accounts,
                     function(account) {
