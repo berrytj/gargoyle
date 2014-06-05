@@ -49,6 +49,7 @@ class Field(object):
         return value
 
     def clean(self, value):
+        print '############# {} #############'.format(value)
         return value
 
     def render(self, value):
@@ -77,14 +78,16 @@ class Choice(Field):
         super(Choice, self).__init__(**kwargs)
 
     def is_active(self, condition, value):
+        print '############# {} #############'.format(len(self.choices))
         return value in self.choices #or int(value) in self.choices
 
     def clean(self, value):
-        import re
-        if re.match(r'^\d+$', value):
-            value = int(value)
-        if value not in self.choices:
-            raise ValidationError
+        print '############# {} #############'.format(len(self.choices))
+        #import re
+        #if re.match(r'^\d+$', value):
+        #    value = int(value)
+        #if value not in self.choices:
+        #    raise ValidationError
         return value
 
     def display(self, value):
