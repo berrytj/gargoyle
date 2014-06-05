@@ -80,7 +80,9 @@ class Choice(Field):
         return value in self.choices #or int(value) in self.choices
 
     def clean(self, value):
-        #value = int(value)
+        import re
+        if re.match(r'^\d+$', value):
+            value = int(value)
         if value not in self.choices:
             raise ValidationError
         return value
