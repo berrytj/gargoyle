@@ -73,7 +73,7 @@ class Boolean(Field):
 class Choice(Field):
     def __init__(self, choices, **kwargs):
         self.choices = choices
-        self.displays = kwargs.get('displays', None)
+        self.displays = kwargs.pop('displays', None)
         super(Choice, self).__init__(**kwargs)
 
     def is_active(self, condition, value):
