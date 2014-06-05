@@ -81,7 +81,7 @@ class Boolean(Field):
 #    #    return condition == value
 #    #    print '####### does this get hit? ###### {} #############'.format(len(self.choices))
 #    #    return value in self.choices
-#
+##
 #    def clean(self, value):
 #        print '############# {} #############'.format(len(self.choices))
 #        return value
