@@ -141,7 +141,7 @@ $(document).ready(function () {
             field: $(this).attr("data-field")
         };
 
-        $.each($(this).find("input"), function () {
+        $.each($(this).find('[name="{}"]'.format(data.field)), function () {
             var val;
 
             if ($(this).attr('type') == 'checkbox') {

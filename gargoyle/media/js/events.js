@@ -12,7 +12,7 @@ $(function() {
                             account[1]
                         );
                     }
-                )
+                ).join('')
             );
         });
     });
