@@ -285,8 +285,7 @@ class GargoyleModule(nexus.NexusModule):
         key = request.POST.get("key")
         condition_set_id = request.POST.get("id")
         field_name = request.POST.get("field")
-        value = toolz.get(
-            field_name, clean_funcs, toolz.identity)(request.POST.get("value"))
+        value = _clean_value(field_name, request.POST.get("value"))
 
         if not all([key, condition_set_id, field_name, value]):
             raise GargoyleException("Fields cannot be empty")
@@ -315,5 +314,10 @@ class GargoyleModule(nexus.NexusModule):
     def valid_sort_orders(self):
         fields = ['label', 'date_created', 'date_modified']
         return fields + ['-' + f for f in fields]
+
+
+def _clean_value(field_name, value):
+    return toolz.get(
+        field_name, clean_funcs, toolz.identity)(value)
 
 nexus.site.register(GargoyleModule, 'gargoyle')
