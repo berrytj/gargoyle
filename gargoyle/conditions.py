@@ -92,8 +92,8 @@ class Choice(Field):
         return value
 
 
+# Added by Karan/Tom.
 class IntField(Field):
-    # Added by Karan/Tom.
     def __init__(self, displays=None, **kwargs):
         self.displays = displays
         super(IntField, self).__init__(**kwargs)
@@ -103,7 +103,7 @@ class IntField(Field):
 
     def display(self, value):
         if self.displays is not None:
-            return self.displays[value]
+            return self.displays()[value]
         else:
             return value
 
