@@ -136,7 +136,8 @@ class Switch(models.Model):
         """
         condition_set = manager.get_condition_set_by_id(condition_set)
 
-        #assert isinstance(condition, basestring), 'conditions must be strings'
+        # Commented out by Tom.
+        # assert isinstance(condition, basestring), 'conditions must be strings'
 
         namespace = condition_set.get_namespace()
 
