@@ -256,7 +256,9 @@
                 <div class="fields" data-path="{{ id }}.{{ field.name }}" style="display:none;">
                     <form action="" method="get" data-switch="{{ id }}" data-field="{{ field.name }}">
                         {% if field.name == 'pk' %}
-                            <input type="text" class="emailForAccount" />
+                            <input type="text" class="emailForAccount" style="width: 150px;" />
+                            <button class="small button findAccounts"
+                                    style="margin-left: 0px; margin-right: 6px;">Find Accounts</button>
                             <select name="pk" class="accountSelect"></select>
                             <button type="submit" class="small button">Add</button>
                         {% else %}

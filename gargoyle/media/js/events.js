@@ -15,5 +15,8 @@ $(function() {
                 ).join('')
             );
         });
+    }).delegate('button.findAccounts', 'click', function(e) {
+        e.preventDefault();
+        $('input.emailForAccount').blur();
     });
 });
