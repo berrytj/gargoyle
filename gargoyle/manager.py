@@ -73,11 +73,7 @@ class SwitchManager(ModelDict):
             return default
 
         if instances:
-            # HACK: support request.user by swapping in User instance
             instances = list(instances)
-            for v in instances:
-                if isinstance(v, HttpRequest) and hasattr(v, 'user'):
-                    instances.append(v.user)
 
         # check each switch to see if it can execute
         return_value = False
